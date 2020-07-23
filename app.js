@@ -89,12 +89,9 @@ function calculateResult() {
 
 // Display Error Message
 function showError(error) {
-    // create a div
     const errorDiv = document.createElement('div');
-    // get elements
     const card = document.querySelector('.card');
     const heading = document.querySelector('.heading');
-    // add class to element
     errorDiv.className = 'alert alert-danger';
     // create text node and append to div
     errorDiv.appendChild(document.createTextNode(error));
@@ -110,7 +107,7 @@ function showError(error) {
     if (years.value === '' || isNaN(years.value)) {
         years.style.borderColor = 'red';
     }
-    // clear error
+    // clear error if another error message already exists
     if (document.getElementsByClassName('alert').length > 1) {
         clearError();
     }
