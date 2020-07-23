@@ -1,7 +1,9 @@
-document.querySelector('#amount').addEventListener('keyup', addCommas);
+document.querySelector('#amount').addEventListener('input', validateAmount);
+document.querySelector('#interest').addEventListener('input', validateInput);
+document.querySelector('#years').addEventListener('input', validateInput);
 
 // Submit Form / Calculate Results
-document.getElementById('loan-form').addEventListener('input', function (e) {
+document.getElementById('loan-form').addEventListener('submit', function (e) {
     // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
         clearError();
@@ -21,27 +23,46 @@ document.getElementById('clear').addEventListener('mousedown', function clearInp
     window.location.reload();
 });
 
-// Dynamically Add Commas As User Types Loan Amount
-function addCommas(e) {
-    // skip for arrow keys
-    if (e.which >= 37 && e.which <= 40) {
-        return;
-    }
+// Validate Amount
+function validateAmount(e) {
     // format number with commas using regular expressions
     $(this).val(function (index, value) {
-        return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        // split at decimal point and validate before the decimal and limit to 2 digits (99 max)
+        let parts = value.toString().split('.');
+        parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        // validate after the decimal and limit to 2 decimal points
+        if (parts[1] !== undefined) {
+            parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+        }
+        console.log(parts[1]);
+        return parts.join('.');
     });
-    // courtesy of Divya K: https://codepen.io/kdivya/pen/oxVeWz
+}
+
+// Validate Interest Rate and Year
+function validateInput(e) {
+    // format number with commas using regular expressions
+    $(this).val(function (index, value) {
+        // split at decimal point and validate before the decimal
+        let parts = value.toString().split('.');
+        parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+        // validate after the decimal and limit to 2 decimal points
+        if (parts[1] !== undefined) {
+            parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+        }
+        console.log(parts[1]);
+        return parts.join('.');
+    });
 }
 
 // Calculate Results
 function calculateResult() {
     console.log('Calculating...');
-    // UI variables: inputs
+    // UI letiables: inputs
     const amount = document.getElementById('amount');
     const interest = document.getElementById('interest');
     const years = document.getElementById('years');
-    // UI variables: outputs
+    // UI letiables: outputs
     const monthlyPayment = document.getElementById('monthly-payment');
     const totalPayment = document.getElementById('total-payment');
     const totalInterest = document.getElementById('total-interest');
