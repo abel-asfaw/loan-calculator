@@ -1,5 +1,6 @@
 document.querySelector('#amount').addEventListener('keyup', addCommas);
 
+// Submit Form / Calculate
 document.getElementById('loan-form').addEventListener('submit', function (e) {
     // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
@@ -13,6 +14,11 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
     setTimeout(calculateResult, 1700);
 
     e.preventDefault();
+});
+
+// Clear Input
+document.getElementById('clear').addEventListener('mousedown', function clearInput(e) {
+    window.location.reload();
 });
 
 // Dynamically Adds Commas As User Types Loan Amount
