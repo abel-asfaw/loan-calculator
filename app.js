@@ -1,6 +1,6 @@
 document.querySelector('#amount').addEventListener('keyup', addCommas);
 
-// Submit Form / Calculate
+// Submit Form / Calculate Results
 document.getElementById('loan-form').addEventListener('submit', function (e) {
     // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
@@ -21,7 +21,7 @@ document.getElementById('clear').addEventListener('mousedown', function clearInp
     window.location.reload();
 });
 
-// Dynamically Adds Commas As User Types Loan Amount
+// Dynamically Add Commas As User Types Loan Amount
 function addCommas(e) {
     // skip for arrow keys
     if (e.which >= 37 && e.which <= 40) {
@@ -57,7 +57,7 @@ function calculateResult() {
         monthlyPayment.value = `$${parseFloat(monthly.toFixed(2)).toLocaleString()}`;
         totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
         totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
-        // show results
+        // display results
         document.getElementById('results').style.display = 'block';
     } else {
         showError('Please check your inputs.');
