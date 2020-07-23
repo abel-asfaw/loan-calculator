@@ -1,9 +1,9 @@
-document.querySelector('input.num').addEventListener('keyup', addCommas);
+document.querySelector('#amount').addEventListener('keyup', addCommas);
 
 document.getElementById('loan-form').addEventListener('submit', function (e) {
-    // hide any existing error messages
+    // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
-        document.querySelector('.alert').remove();
+        clearError();
     }
     // hide results
     document.getElementById('results').style.display = 'none';
@@ -23,7 +23,7 @@ function addCommas(e) {
     }
     // format number with commas using regular expressions
     $(this).val(function (index, value) {
-        return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     });
     // courtesy of Divya K: https://codepen.io/kdivya/pen/oxVeWz
 }
@@ -40,14 +40,14 @@ function calculateResult() {
     const totalPayment = document.getElementById('total-payment');
     const totalInterest = document.getElementById('total-interest');
     // remove commas before calculating results
-    const principal = parseFloat(amount.value.replace(/,/gi, ""));
-    const calculatedInterest = parseFloat(interest.value.replace(/,/gi, "")) / 100 / 12;
-    const calculatedPayments = parseFloat(years.value.replace(/,/gi, "")) * 12;
+    const principal = parseFloat(amount.value.replace(/,/gi, ''));
+    const calculatedInterest = parseFloat(interest.value.replace(/,/gi, '')) / 100 / 12;
+    const calculatedPayments = parseFloat(years.value.replace(/,/gi, '')) * 12;
     // compute monthly payments
     const x = Math.pow(1 + calculatedInterest, calculatedPayments);
     const monthly = (principal * x * calculatedInterest) / (x - 1);
     // validate monthly's value
-    if (isFinite(monthly)) {
+    if (isFinite(monthly) && !isNaN(amount.value.replace(/,/gi, '')) && !isNaN(interest.value) && !isNaN(years.value)) {
         monthlyPayment.value = `$${parseFloat(monthly.toFixed(2)).toLocaleString()}`;
         totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
         totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
@@ -73,6 +73,16 @@ function showError(error) {
     errorDiv.appendChild(document.createTextNode(error));
     // insert error above heading
     card.insertBefore(errorDiv, heading);
+    // highlight border red if input is incorrect
+    if (amount.value === '' || isNaN(amount.value.replace(/,/gi, ''))) {
+        amount.style.borderColor = 'red';
+    }
+    if (interest.value === '' || isNaN(interest.value)) {
+        interest.style.borderColor = 'red';
+    }
+    if (years.value === '' || isNaN(years.value)) {
+        years.style.borderColor = 'red';
+    }
     // clear error
     if (document.getElementsByClassName('alert').length > 1) {
         clearError();
@@ -81,5 +91,10 @@ function showError(error) {
 
 // Clear Error
 function clearError() {
+    // reset border color to default
+    amount.style.borderColor = '#ced4da';
+    interest.style.borderColor = '#ced4da';
+    years.style.borderColor = '#ced4da';
+    // remove alerts
     document.querySelector('.alert').remove();
 }
