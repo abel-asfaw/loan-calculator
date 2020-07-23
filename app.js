@@ -24,7 +24,8 @@ function addCommas(e) {
     // format number with commas using regular expressions
     $(this).val(function (index, value) {
         return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }); // courtesy of Divya K: https://codepen.io/kdivya/pen/oxVeWz
+    });
+    // courtesy of Divya K: https://codepen.io/kdivya/pen/oxVeWz
 }
 
 // Calculate Results
