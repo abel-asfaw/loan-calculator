@@ -1,7 +1,7 @@
 document.querySelector('#amount').addEventListener('keyup', addCommas);
 
 // Submit Form / Calculate Results
-document.getElementById('loan-form').addEventListener('submit', function (e) {
+document.getElementById('loan-form').addEventListener('input', function (e) {
     // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
         clearError();
