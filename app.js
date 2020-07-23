@@ -53,12 +53,12 @@ function calculateResult() {
         // show results
         document.getElementById('results').style.display = 'block';
     } else {
-        showError('There may be an error in your inputs. Please try again.');
+        showError('Please check your inputs.');
     }
     // hide loading animation
     document.getElementById('loading').style.display = 'none';
 }
- 
+
 // Display Error Message
 function showError(error) {
     // create a div
