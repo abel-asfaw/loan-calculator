@@ -47,9 +47,9 @@ function calculateResult() {
     const monthly = (principal * x * calculatedInterest) / (x - 1);
     // validate monthly's value
     if (isFinite(monthly)) {
-        monthlyPayment.value = parseFloat(monthly.toFixed(2)).toLocaleString();
-        totalPayment.value = parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString();
-        totalInterest.value = parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString();
+        monthlyPayment.value = `$${parseFloat(monthly.toFixed(2)).toLocaleString()}`;
+        totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
+        totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
         // show results
         document.getElementById('results').style.display = 'block';
     } else {
