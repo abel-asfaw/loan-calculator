@@ -19,7 +19,7 @@ document.querySelector('#loan-form').addEventListener('submit', function (e) {
 });
 
 // Clear Input
-document.querySelector('#clear').addEventListener('mousedown', function clearInput(e) {
+document.querySelector('#clear').addEventListener('mousedown', function clearInput() {
     window.location.reload();
 });
 
