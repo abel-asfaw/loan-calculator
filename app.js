@@ -97,13 +97,13 @@ function showError(error) {
     card.insertBefore(errorDiv, heading);
     // highlight border red if input is incorrect
     if (amount.value === '' || isNaN(amount.value.replace(/,/gi, ''))) {
-        amount.style.borderColor = 'red';
+        amount.style.borderColor = '#ff6b79';
     }
     if (interest.value === '' || isNaN(interest.value)) {
-        interest.style.borderColor = 'red';
+        interest.style.borderColor = '#ff6b79';
     }
     if (years.value === '' || isNaN(years.value)) {
-        years.style.borderColor = 'red';
+        years.style.borderColor = '#ff6b79';
     }
     // clear error if another error message already exists
     if (document.getElementsByClassName('alert').length > 1) {
