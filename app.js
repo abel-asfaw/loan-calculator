@@ -3,15 +3,15 @@ document.querySelector('#interest').addEventListener('input', validateInput);
 document.querySelector('#years').addEventListener('input', validateInput);
 
 // Submit Form / Calculate Results
-document.getElementById('loan-form').addEventListener('submit', function (e) {
+document.querySelector('#loan-form').addEventListener('submit', function (e) {
     // hide any pre-existing error messages
     if (document.getElementsByClassName('alert').length > 0) {
         clearError();
     }
     // hide results
-    document.getElementById('results').style.display = 'none';
+    document.querySelector('#results').style.display = 'none';
     // show loading animation
-    document.getElementById('loading').style.display = 'block';
+    document.querySelector('#loading').style.display = 'block';
     // show loading animation for 1.7 seconds
     setTimeout(calculateResult, 1700);
 
@@ -19,28 +19,28 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
 });
 
 // Clear Input
-document.getElementById('clear').addEventListener('mousedown', function clearInput(e) {
+document.querySelector('#clear').addEventListener('mousedown', function clearInput(e) {
     window.location.reload();
 });
 
 // Validate Amount
-function validateAmount(e) {
+function validateAmount() {
     // format number with commas using regular expressions
     $(this).val(function (index, value) {
-        // split at decimal point and validate before the decimal and limit to 2 digits (99 max)
+        // split at decimal point, validate and insert commas where necessary
+        // before the decimal, and limit to 2 decimal points
         let parts = value.toString().split('.');
         parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         // validate after the decimal and limit to 2 decimal points
         if (parts[1] !== undefined) {
             parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
         }
-        console.log(parts[1]);
         return parts.join('.');
     });
 }
 
 // Validate Interest Rate and Year
-function validateInput(e) {
+function validateInput() {
     // format number with commas using regular expressions
     $(this).val(function (index, value) {
         // split at decimal point and validate before the decimal
@@ -50,22 +50,20 @@ function validateInput(e) {
         if (parts[1] !== undefined) {
             parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
         }
-        console.log(parts[1]);
         return parts.join('.');
     });
 }
 
 // Calculate Results
 function calculateResult() {
-    console.log('Calculating...');
     // UI letiables: inputs
-    const amount = document.getElementById('amount');
-    const interest = document.getElementById('interest');
-    const years = document.getElementById('years');
+    const amount = document.querySelector('#amount');
+    const interest = document.querySelector('#interest');
+    const years = document.querySelector('#years');
     // UI letiables: outputs
-    const monthlyPayment = document.getElementById('monthly-payment');
-    const totalPayment = document.getElementById('total-payment');
-    const totalInterest = document.getElementById('total-interest');
+    const monthlyPayment = document.querySelector('#monthly-payment');
+    const totalPayment = document.querySelector('#total-payment');
+    const totalInterest = document.querySelector('#total-interest');
     // remove commas before calculating results
     const principal = parseFloat(amount.value.replace(/,/gi, ''));
     const calculatedInterest = parseFloat(interest.value.replace(/,/gi, '')) / 100 / 12;
@@ -79,12 +77,12 @@ function calculateResult() {
         totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
         totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
         // display results
-        document.getElementById('results').style.display = 'block';
+        document.querySelector('#results').style.display = 'block';
     } else {
         showError('Please check your inputs.');
     }
     // hide loading animation
-    document.getElementById('loading').style.display = 'none';
+    document.querySelector('#loading').style.display = 'none';
 }
 
 // Display Error Message
