@@ -1,3 +1,4 @@
+// Input Validation
 document.querySelector('#amount').addEventListener('input', validateAmount);
 document.querySelector('#interest').addEventListener('input', validateInput);
 document.querySelector('#years').addEventListener('input', validateInput);
@@ -46,7 +47,7 @@ function validateInput() {
         // split at decimal point and validate before the decimal
         let parts = value.toString().split('.');
         parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
-        // validate after the decimal and limit to 2 decimal points
+        // validate after the decimal point and limit to 2 decimal points
         if (parts[1] !== undefined) {
             parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
         }
