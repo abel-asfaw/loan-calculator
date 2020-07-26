@@ -35,7 +35,7 @@
                                     <span class="input-group-text">$</span>
                                 </div>
                                 <input type="text" class="form-control" id="amount" placeholder="Loan amount"
-                                    autocomplete="off">
+                                    autocomplete="off" pattern="\-?\d+(\.\d{0,})?">
                             </div>
                         </div>
                         <div class="form-group">
@@ -44,16 +44,16 @@
                                     <span class="input-group-text">%</span>
                                 </div>
                                 <input type="text" class="form-control" id="interest" placeholder="Interest rate per year"
-                                    autocomplete="off" pattern="[0-9]*\.">
+                                    autocomplete="off" pattern="\-?\d+(\.\d{0,})?">
                             </div>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="years" placeholder="Loan term in years"
-                                autocomplete="off" pattern="[0-9]*" step="0.01">
+                                autocomplete="off">
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Calculate" class="btn btn-dark btn-block clear-input" id="calculate">
-                            <input type="button" value="Clear" class="btn btn-dark btn-block clear-input" id="clear"">
+                            <input type="button" value="Clear" class="btn btn-dark btn-block clear-input" id="clear">
                         </div>
                     </form>
                     <!-- LOADER HERE -->
