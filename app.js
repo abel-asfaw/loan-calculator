@@ -6,9 +6,7 @@ document.querySelector('#years').addEventListener('input', validateYears);
 // Submit Form / Calculate Results
 document.querySelector('#loan-form').addEventListener('submit', function (e) {
     // hide any pre-existing error messages
-    if (document.getElementsByClassName('alert').length > 0) {
-        clearError();
-    }
+    clearError();
     // hide results
     document.querySelector('#results').style.display = 'none';
     // show loading animation
@@ -119,5 +117,7 @@ function clearError() {
     interest.style.borderColor = '#ced4da';
     years.style.borderColor = '#ced4da';
     // remove alerts
-    document.querySelector('.alert').remove();
+    if (document.getElementsByClassName('alert').length > 0) {
+        document.querySelector('.alert').remove();
+    }
 }
