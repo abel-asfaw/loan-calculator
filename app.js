@@ -26,10 +26,10 @@ document.querySelector('#clear').addEventListener('mousedown', function clearInp
 
 // Validate Amount
 function validateAmount() {
-    // remove leading 0 and multiple decimal point occurences, then split at decimal point
+    // remove leading zero and multiple periods, then split at decimal point
     let parts = this.value.replace(/^0/g, '').replace(/([^.]*\.[^.]*)\./g, '$1').toString().split('.');
     parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    // validate after the decimal and limit to 2 decimal points
+    // limit second half to 2 decimal points
     if (parts[1] !== undefined) {
         parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
     }
@@ -38,11 +38,11 @@ function validateAmount() {
 
 // Validate Interest Rate
 function validateInterest() {
-    // split at decimal point and validate before the decimal
-    // .replace(/([^.]*\.[^.]*)\./g, '$1') prevents more than one decimal occurrence
+    // remove leading zero and prevent multiple periods, then split at decimal point
     let parts = this.value.replace(/^0/g, '').replace(/([^.]*\.[^.]*)\./g, '$1').toString().split('.');
+    // limit first half to two digits (1-99)
     parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
-    // validate after the decimal point and limit to 2 decimal points
+    // limit second half to 2 decimal points
     if (parts[1] !== undefined) {
         parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
     }
@@ -51,7 +51,7 @@ function validateInterest() {
 
 // Validate Year
 function validateYears() {
-    // allow only integers (no decimals) and limit to 1 - 99
+    // remove leading zero and and limit to two digits (1-99)
     this.value = this.value.replace(/^0/g, '').replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
 }
 
