@@ -1,7 +1,7 @@
 // Input Validation
 document.querySelector('#amount').addEventListener('input', validateAmount);
-document.querySelector('#interest').addEventListener('input', validateInput);
-document.querySelector('#years').addEventListener('input', validateInput);
+document.querySelector('#interest').addEventListener('input', validateInterest);
+document.querySelector('#years').addEventListener('input', validateYears);
 
 // Submit Form / Calculate Results
 document.querySelector('#loan-form').addEventListener('submit', function (e) {
@@ -26,33 +26,33 @@ document.querySelector('#clear').addEventListener('mousedown', function clearInp
 
 // Validate Amount
 function validateAmount() {
-    // format number with commas using regular expressions
-    $(this).val(function (index, value) {
-        // split at decimal point, validate and insert commas where necessary
-        // before the decimal, and limit to 2 decimal points
-        let parts = value.toString().split('.');
-        parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        // validate after the decimal and limit to 2 decimal points
-        if (parts[1] !== undefined) {
-            parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
-        }
-        return parts.join('.');
-    });
+    // remove leading 0 and multiple decimal point occurences, then split at decimal point
+    let parts = this.value.replace(/^0/g, '').replace(/([^.]*\.[^.]*)\./g, '$1').toString().split('.');
+    parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // validate after the decimal and limit to 2 decimal points
+    if (parts[1] !== undefined) {
+        parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+    }
+    this.value = parts.join('.');
 }
 
-// Validate Interest Rate and Year
-function validateInput() {
-    // format number with commas using regular expressions
-    $(this).val(function (index, value) {
-        // split at decimal point and validate before the decimal
-        let parts = value.toString().split('.');
-        parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
-        // validate after the decimal point and limit to 2 decimal points
-        if (parts[1] !== undefined) {
-            parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
-        }
-        return parts.join('.');
-    });
+// Validate Interest Rate
+function validateInterest() {
+    // split at decimal point and validate before the decimal
+    // .replace(/([^.]*\.[^.]*)\./g, '$1') prevents more than one decimal occurrence
+    let parts = this.value.replace(/^0/g, '').replace(/([^.]*\.[^.]*)\./g, '$1').toString().split('.');
+    parts[0] = parts[0].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+    // validate after the decimal point and limit to 2 decimal points
+    if (parts[1] !== undefined) {
+        parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
+    }
+    this.value = parts.join('.');
+}
+
+// Validate Year
+function validateYears() {
+    // allow only integers (no decimals) and limit to 1 - 99
+    this.value = this.value.replace(/^0/g, '').replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
 }
 
 // Calculate Results
