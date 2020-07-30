@@ -32,6 +32,7 @@ function validateAmount() {
         parts[1] = parts[1].replace(/[^0-9]+/g, '').replace(/^(\d{0,2})\d*$/, '$1');
     }
     this.value = parts.join('.');
+    console.log(this.value);
 }
 
 // Validate Interest Rate
