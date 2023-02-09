@@ -9,11 +9,7 @@ document.querySelector('#loan-form').addEventListener('submit', function (e) {
     clearError();
     // hide results
     document.querySelector('#results').style.display = 'none';
-    // show loading animation
-    document.querySelector('#loading').style.display = 'block';
-    // show loading animation for 1.7 seconds
-    setTimeout(calculateResult, 1700);
-
+    calculateResult();
     e.preventDefault();
 });
 
@@ -73,11 +69,16 @@ function calculateResult() {
     const monthly = (principal * x * calculatedInterest) / (x - 1);
     // validate monthly's value
     if (isFinite(monthly) && !isNaN(amount.value.replace(/,/gi, '')) && !isNaN(interest.value) && !isNaN(years.value)) {
+        // show loading animation
+        document.querySelector('#loading').style.display = 'block';
         monthlyPayment.value = `$${parseFloat(monthly.toFixed(2)).toLocaleString()}`;
         totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
         totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
-        // display results
-        document.querySelector('#results').style.display = 'block';
+        // show loading animation for 1.7 seconds
+        setTimeout(() => {
+            // display results
+            document.querySelector('#results').style.display = 'block';
+        }, 1000);
     } else {
         showError('Please check your inputs.');
     }
