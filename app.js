@@ -75,10 +75,11 @@ function calculateResult() {
         totalPayment.value = `$${parseFloat((monthly * calculatedPayments).toFixed(2)).toLocaleString()}`;
         totalInterest.value = `$${parseFloat(((monthly * calculatedPayments) - principal).toFixed(2)).toLocaleString()}`;
         // show loading animation for 1.7 seconds
+        document.querySelector('#loading').style.display = 'block';
         setTimeout(() => {
             // display results
             document.querySelector('#results').style.display = 'block';
-        }, 1000);
+        }, 1700);
     } else {
         showError('Please check your inputs.');
     }
