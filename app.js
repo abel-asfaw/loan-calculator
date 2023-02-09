@@ -17,7 +17,12 @@ document.querySelector('#loan-form').addEventListener('submit', function (e) {
 
 // Clear Input
 document.querySelector('#clear').addEventListener('mousedown', function clearInput() {
-    window.location.reload();
+    // reset the form
+    document.querySelector('#loan-form').reset();
+    // hide results
+    document.querySelector('#results').style.display = 'none';
+    // clear any errors
+    clearError();
 });
 
 // Validate Amount
